@@ -1,31 +1,21 @@
-"use client"
+"use client";
 
-import { motion } from 'framer-motion'
-import { Calendar, MapPin, Briefcase } from 'lucide-react'
+import { motion } from "framer-motion";
+import { Calendar, MapPin, Briefcase } from "lucide-react";
 
 const experiences = [
   {
-    title: "Senior Backend Developer",
-    company: "TechCorp Solutions",
-    location: "San Francisco, CA",
-    period: "2020 - Present",
-    description: "Lead the development of scalable microservices architecture, improving system performance by 40%. Mentored junior developers and implemented best practices in code reviews and testing."
-  },
-  {
-    title: "Backend Developer",
-    company: "DataDrive Innovations",
-    location: "New York, NY",
-    period: "2017 - 2020",
-    description: "Designed and implemented RESTful APIs serving over 1 million requests per day. Optimized database queries, reducing response times by 30%."
-  },
-  {
     title: "Junior Software Engineer",
-    company: "StartUp Rocket",
-    location: "Austin, TX",
-    period: "2015 - 2017",
-    description: "Contributed to the development of a cloud-based project management tool. Implemented user authentication and real-time collaboration features."
-  }
-]
+    company: "Retainful",
+    location: "Coimbatore, Tamil Nadu",
+    period: "2024 - present",
+    description:
+      "Contributed to the development of a cloud-based project management tool. Implemented user authentication and real-time collaboration features.",
+    achievements: [
+      "Designed and implemented a segment UI similar to those in Omnisend and Klaviyo, offering an intuitive and user-friendly interface for audience segmentation.",
+    ],
+  },
+];
 
 export default function Experience() {
   return (
@@ -49,7 +39,9 @@ export default function Experience() {
               transition={{ duration: 0.5, delay: index * 0.2 }}
             >
               <div className="p-6">
-                <h3 className="text-2xl font-semibold mb-2 text-green-400">{exp.title}</h3>
+                <h3 className="text-2xl font-semibold mb-2 text-green-400">
+                  {exp.title}
+                </h3>
                 <div className="flex items-center mb-4 text-gray-400">
                   <Briefcase className="w-5 h-5 mr-2" />
                   <span className="mr-4">{exp.company}</span>
@@ -63,11 +55,15 @@ export default function Experience() {
                 <p className="text-gray-300">{exp.description}</p>
               </div>
               <div className="bg-gray-700 px-6 py-4">
-                <h4 className="text-lg font-semibold mb-2 text-green-400">Key Achievements</h4>
+                <h4 className="text-lg font-semibold mb-2 text-green-400">
+                  Key Achievements
+                </h4>
                 <ul className="list-disc list-inside text-gray-300">
-                  <li>Improved system performance by 40%</li>
-                  <li>Implemented industry best practices</li>
-                  <li>Mentored junior developers</li>
+                  {exp.achievements.map(
+                    (achievement: string, index: number) => {
+                      return <li key={index}>{achievement}</li>;
+                    }
+                  )}
                 </ul>
               </div>
             </motion.div>
@@ -75,6 +71,5 @@ export default function Experience() {
         </div>
       </div>
     </section>
-  )
+  );
 }
-

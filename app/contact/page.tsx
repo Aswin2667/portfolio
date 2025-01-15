@@ -1,10 +1,12 @@
 import Contact from '@/components/Contact'
+import { Toaster } from "@/components/ui/toaster"
 
 export default function ContactPage() {
   return (
-    <div className="bg-gray-800 min-h-screen py-20">
+    <>
       <Contact />
-    </div>
+      <Toaster />
+    </>
   )
 }
 

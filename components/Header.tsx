@@ -57,13 +57,13 @@ export default function Header() {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
               >
                 <Link href={item.path} passHref>
-                  <span className={`cursor-pointer text-gray-300 hover:text-green-400 transition-colors relative ${
+                  <span className={`cursor-pointer text-gray-300 p-3 hover:text-green-400 transition-colors relative ${
                     pathname === item.path ? 'text-green-400' : ''
                   }`}>
                     {item.name}
                     {pathname === item.path && (
                       <motion.span
-                        className="absolute bottom-0 left-0 w-full h-0.5 bg-green-400"
+                        className="absolute bottom-0 left-0 w-full h-0.5  bg-green-400"
                         layoutId="underline"
                       />
                     )}
