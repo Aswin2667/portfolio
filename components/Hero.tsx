@@ -3,6 +3,8 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import GitHubGraph from "./GitHubGraph";
+import TiltedScroll from "./DiagonalScroll";
+import { LampContainer } from "./ui/lamp";
 
 const terminalLines = [
   "Hi, I'm Aswin.",
@@ -12,7 +14,6 @@ const terminalLines = [
   "Code is like humor. When you have to explain it, it’s bad.",
   "Make it work, make it right, make it fast.",
 ];
-
 
 export default function Hero() {
   const [displayedLines, setDisplayedLines] = useState<string[]>([]);
@@ -32,54 +33,58 @@ export default function Hero() {
   }, []);
 
   return (
-    <section
-      id="home"
-      className="min-h-screen flex items-center flex-col justify-center bg-gray-900"
-    >
-      <div className="container mx-auto px-4">
-        <motion.div
-          className="bg-black p-8 rounded-lg shadow-2xl max-w-3xl mx-auto"
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-        >
-          <div className="flex items-center mb-4">
-            <div className="w-3 h-3 rounded-full bg-red-500 mr-2"></div>
-            <div className="w-3 h-3 rounded-full bg-yellow-500 mr-2"></div>
-            <div className="w-3 h-3 rounded-full bg-green-500"></div>
-          </div>
-          <div className="font-mono text-green-400">
+    <div className="flex  items-center justify-center">
+      <section
+        id="home"
+        className="min-h-screen flex items-center flex-col justify-center bg-gray-900"
+      >
+        <LampContainer>
+          <div className="container mx-auto px-4">
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5 }}
+              className="bg-black p-8 rounded-lg shadow-2xl max-w-3xl mx-auto"
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
             >
-              $ ./introduce.sh
+              <div className="flex items-center mb-4">
+                <div className="w-3 h-3 rounded-full bg-red-500 mr-2"></div>
+                <div className="w-3 h-3 rounded-full bg-yellow-500 mr-2"></div>
+                <div className="w-3 h-3 rounded-full bg-green-500"></div>
+              </div>
+              <div className="font-mono text-green-400">
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  $ ./introduce.sh
+                </motion.div>
+                {displayedLines.map((line, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.5, delay: index * 0.5 }}
+                  >
+                    {line}
+                  </motion.div>
+                ))}
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{
+                    repeat: Infinity,
+                    duration: 0.8,
+                    repeatType: "reverse",
+                  }}
+                  className="inline-block w-3 h-5 bg-green-400 ml-1"
+                ></motion.div>
+              </div>
             </motion.div>
-            {displayedLines.map((line, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.5 }}
-              >
-                {line}
-              </motion.div>
-            ))}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{
-                repeat: Infinity,
-                duration: 0.8,
-                repeatType: "reverse",
-              }}
-              className="inline-block w-3 h-5 bg-green-400 ml-1"
-            ></motion.div>
           </div>
-        </motion.div>
-      </div>
-      <GitHubGraph />
-    </section>
+          <GitHubGraph />
+        </LampContainer>
+      </section>
+    </div>
   );
 }

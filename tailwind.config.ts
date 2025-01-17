@@ -1,5 +1,7 @@
 import type { Config } from "tailwindcss";
-
+const {
+	default: flattenColorPalette,
+  } = require("tailwindcss/lib/util/flattenColorPalette");
 const config: Config = {
     darkMode: ["class"],
     content: [
@@ -83,14 +85,37 @@ const config: Config = {
   				to: {
   					height: '0'
   				}
-  			}
+  			},
+			'skew-scroll': {
+          '0%': {
+            transform: 'rotateX(20deg) rotateZ(-20deg) skewX(20deg)',
+          },
+          '100%': {
+            transform: 'rotateX(20deg) rotateZ(-20deg) skewX(20deg) translateY(-100%)',
+          },
+        },
   		},
   		animation: {
   			'accordion-down': 'accordion-down 0.2s ease-out',
-  			'accordion-up': 'accordion-up 0.2s ease-out'
+  			'accordion-up': 'accordion-up 0.2s ease-out',
+			'skew-scroll': 'skew-scroll 20s linear infinite',
+
   		}
   	}
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [require("tailwindcss-animate"),    addVariablesForColors,
+  ],
 };
 export default config;
+
+
+function addVariablesForColors({ addBase, theme }: any) {
+	let allColors = flattenColorPalette(theme("colors"));
+	let newVars = Object.fromEntries(
+	  Object.entries(allColors).map(([key, val]) => [`--${key}`, val])
+	);
+   
+	addBase({
+	  ":root": newVars,
+	});
+  }
